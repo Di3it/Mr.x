@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fbe3e8;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        .game-container {
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #ff4081;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Happy Birthday Yasika!! 🎂</h1>
+        <p>Here's something to make you laugh on your special day! 😆</p>
+        
+        <h2>😂 Joke of the Day:</h2>
+        <p><b>Why did the birthday cake go to the doctor?</b></p>
+        <p>Because it was feeling a little crumby! 🎂🤣</p>
+        
+        <h2>🤣 Meme Time:</h2>
+        <img src="https://i.pinimg.com/736x/b7/3a/d4/b73ad4b6b5b0fd91f89c2a53f37005c7.jpg" alt="Funny Birthday Meme">
+        
+        <div class="game-container">
+            <h2>🎮 Birthday Surprise Game!</h2>
+            <p>Click the button below to see your surprise:</p>
+            <button class="button" onclick="playGame()">Click Me!</button>
+            <p id="game-result"></p>
+        </div>
+        
+        <p>Hope your day is as amazing as you are! 🎈🎊</p>
+        <p><b>Appreciation:</b> You are an amazing person, and I feel lucky to have you as my friend. Wishing you all the happiness in the world! 🎁💖</p>
+    </div>
+    
+    <script>
+        function playGame() {
+            const messages = [
+                "You are the birthday star! 🌟",
+                "May all your wishes come true! 🎁",
+                "You're the best! Keep shining! ✨",
+                "Sending you all the happiness in the world! 💖",
+                "This day is special because YOU are special! 🎂"
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById("game-result").innerText = randomMessage;
+        }
+    </script>
+</body>
+</html>
