@@ -125,14 +125,9 @@
             display: none;
             z-index: 2;
         }
-        
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 <body>
-    <!-- [All your HTML elements remain exactly the same] -->
     <div class="message-box" id="message1">
         <h1>It's your special day yeye!!</h1>
     </div>
@@ -166,7 +161,10 @@
     <div class="message-box" id="finalMessage">
         <h2>Well I have a message for you madam jiii</h2>
         <div id="customMessage" style="margin-top: 20px; font-size: 18px;">
-            <!-- Custom message will be inserted here -->
+            <p>You are the most amazing person I know!</p>
+            <p>Your smile brightens my day, and your laughter is my favorite sound.</p>
+            <p>On this special day, I want you to know how much you mean to me.</p>
+            <p>Wishing you the happiest of birthdays filled with love and joy!</p>
         </div>
     </div>
 
@@ -176,7 +174,6 @@
     </audio>
 
     <script>
-        // Create stars in background
         function createStars() {
             const container = document.body;
             for (let i = 0; i < 100; i++) {
@@ -241,8 +238,7 @@
                             
                             document.getElementById('musicOption').addEventListener('click', () => {
                                 document.getElementById('musicOption').style.display = 'none';
-                                const music = document.getElementById('birthdayMusic');
-                                music.play();
+                                document.getElementById('birthdayMusic').play();
                                 
                                 setTimeout(() => {
                                     document.getElementById('decorateOption').style.display = 'block';
@@ -290,12 +286,6 @@
         function showFinalMessage() {
             setTimeout(() => {
                 document.getElementById('finalMessage').classList.add('active');
-                document.getElementById('customMessage').innerHTML = `
-                    <p>You are the most amazing person I know!</p>
-                    <p>Your smile brightens my day, and your laughter is my favorite sound.</p>
-                    <p>On this special day, I want you to know how much you mean to me.</p>
-                    <p>Wishing you the happiest of birthdays filled with love and joy!</p>
-                `;
             }, 3000);
         }
         
