@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Day!</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+            transition: background-color 1s;
+        }
+        
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffb6c1;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0.7);
+            text-align: center;
+            max-width: 80%;
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 10;
+        }
+        
+        .message-box.active {
+            opacity: 1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 1s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            from { opacity: 0.3; }
+            to { opacity: 1; }
+        }
+        
+        .btn {
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .btn-no {
+            background-color: #ff6b6b;
+        }
+        
+        .center-option {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffb6c1;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0.7);
+            z-index: 5;
+            display: none;
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            border-radius: 50%;
+            bottom: -100px;
+            animation: float 8s infinite ease-in;
+            z-index: 1;
+        }
+        
+        .balloon:before {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 50px;
+            background-color: #333;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        @keyframes float {
+            0% { bottom: -100px; transform: translateX(0) rotate(0deg); }
+            50% { transform: translateX(20px) rotate(5deg); }
+            100% { bottom: 100vh; transform: translateX(-20px) rotate(-5deg); }
+        }
+        
+        .banner {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffb6c1;
+            color: #d60b52;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0.7);
+            display: none;
+            z-index: 2;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- [All your HTML elements remain exactly the same] -->
+    <div class="message-box" id="message1">
+        <h1>It's your special day yeye!!</h1>
+    </div>
+    
+    <div class="message-box" id="message2">
+        <h2>To make something special to you are special to me!!</h2>
+    </div>
+    
+    <div class="message-box" id="message3">
+        <h2>Do you wanna see what I made??</h2>
+        <button class="btn" id="yesBtn">Yes!</button>
+        <button class="btn btn-no" id="noBtn">No</button>
+    </div>
+    
+    <div class="message-box" id="message4">
+        <h2>Have a look madam jiii!!!</h2>
+    </div>
+    
+    <div class="center-option" id="lightsOption">Lights</div>
+    <div class="center-option" id="musicOption">Play Music</div>
+    <div class="center-option" id="decorateOption">Decorate</div>
+    
+    <div class="banner" id="birthdayBanner">Happy Birthday!</div>
+    
+    <div class="message-box" id="balloonQuestion">
+        <h2>Would you like some balloons?</h2>
+        <button class="btn" id="yesBalloons">Yes!</button>
+        <button class="btn btn-no" id="noBalloons">No</button>
+    </div>
+    
+    <div class="message-box" id="finalMessage">
+        <h2>Well I have a message for you madam jiii</h2>
+        <div id="customMessage" style="margin-top: 20px; font-size: 18px;">
+            <!-- Custom message will be inserted here -->
+        </div>
+    </div>
+
+    <audio id="birthdayMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Create stars in background
+        function createStars() {
+            const container = document.body;
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                
+                container.appendChild(star);
+            }
+        }
+        
+        function showMessages() {
+            createStars();
+            
+            document.getElementById('message1').classList.add('active');
+            
+            setTimeout(() => {
+                document.getElementById('message1').classList.remove('active');
+                document.getElementById('message2').classList.add('active');
+            }, 5000);
+            
+            setTimeout(() => {
+                document.getElementById('message2').classList.remove('active');
+                document.getElementById('message3').classList.add('active');
+                
+                document.getElementById('yesBtn').addEventListener('click', () => {
+                    document.getElementById('message3').classList.remove('active');
+                    proceedWithShow();
+                });
+                
+                document.getElementById('noBtn').addEventListener('click', () => {
+                    document.getElementById('message3').classList.remove('active');
+                    proceedWithShow();
+                });
+            }, 10000);
+        }
+        
+        function proceedWithShow() {
+            document.getElementById('message4').classList.add('active');
+            
+            setTimeout(() => {
+                document.getElementById('message4').classList.remove('active');
+                document.body.style.backgroundColor = '#000';
+                
+                setTimeout(() => {
+                    document.getElementById('lightsOption').style.display = 'block';
+                    
+                    document.getElementById('lightsOption').addEventListener('click', () => {
+                        document.getElementById('lightsOption').style.display = 'none';
+                        document.body.style.backgroundColor = '#ffebee';
+                        
+                        setTimeout(() => {
+                            document.getElementById('musicOption').style.display = 'block';
+                            
+                            document.getElementById('musicOption').addEventListener('click', () => {
+                                document.getElementById('musicOption').style.display = 'none';
+                                const music = document.getElementById('birthdayMusic');
+                                music.play();
+                                
+                                setTimeout(() => {
+                                    document.getElementById('decorateOption').style.display = 'block';
+                                    
+                                    document.getElementById('decorateOption').addEventListener('click', () => {
+                                        document.getElementById('decorateOption').style.display = 'none';
+                                        document.getElementById('birthdayBanner').style.display = 'block';
+                                        
+                                        setTimeout(() => {
+                                            document.getElementById('balloonQuestion').classList.add('active');
+                                            
+                                            document.getElementById('yesBalloons').addEventListener('click', createBalloons);
+                                            document.getElementById('noBalloons').addEventListener('click', () => {
+                                                document.getElementById('balloonQuestion').classList.remove('active');
+                                                showFinalMessage();
+                                            });
+                                        }, 3000);
+                                    });
+                                }, 2000);
+                            });
+                        }, 2000);
+                    });
+                }, 1000);
+            }, 5000);
+        }
+        
+        function createBalloons() {
+            document.getElementById('balloonQuestion').classList.remove('active');
+            
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            
+            for (let i = 0; i < 20; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                balloon.style.left = `${Math.random() * 100}%`;
+                balloon.style.animationDelay = `${Math.random() * 5}s`;
+                
+                document.body.appendChild(balloon);
+            }
+            
+            showFinalMessage();
+        }
+        
+        function showFinalMessage() {
+            setTimeout(() => {
+                document.getElementById('finalMessage').classList.add('active');
+                document.getElementById('customMessage').innerHTML = `
+                    <p>You are the most amazing person I know!</p>
+                    <p>Your smile brightens my day, and your laughter is my favorite sound.</p>
+                    <p>On this special day, I want you to know how much you mean to me.</p>
+                    <p>Wishing you the happiest of birthdays filled with love and joy!</p>
+                `;
+            }, 3000);
+        }
+        
+        window.onload = showMessages;
+    </script>
+</body>
+</html>
