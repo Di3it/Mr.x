@@ -1,340 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A special birthday surprise webpage!">
-  <title>Happy Birthday!</title>
+  <title>Birthday Surprise</title>
   <style>
     body {
-      font-family: 'Comic Sans MS', cursive, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #000;
+      background: radial-gradient(circle at top, #ffe6f0, #ffb6c1);
       overflow: hidden;
-      color: #000;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
     }
-    .message-box {
-      position: fixed;
+    .message {
+      position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background-color: #ffc0cb;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(255, 182, 193, 0.7);
-      text-align: center;
-      max-width: 90%;
+      background: white;
+      padding: 20px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity 1s ease;
+      text-align: center;
+      font-size: 1.5rem;
       z-index: 10;
     }
-    .message-box.active {
+    .message.active {
       opacity: 1;
     }
-    .star {
+    .heart {
       position: absolute;
-      background-color: white;
-      border-radius: 50%;
-      animation: twinkle 1s infinite alternate;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 6s infinite;
     }
-    @keyframes twinkle {
-      from { opacity: 0.3; }
-      to { opacity: 1; }
-    }
-    .btn {
-      background-color: #1e90ff;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      margin: 5px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background-color 0.3s;
-    }
-    .btn:hover {
-      background-color: #1565c0;
-    }
-    .btn-no {
-      background-color: #ff6b6b;
-    }
-    .btn-no:hover {
-      background-color: #e53935;
-    }
-    .center-option {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #ffc0cb;
-      padding: 10px 20px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 16px;
-      box-shadow: 0 0 10px rgba(255, 182, 193, 0.7);
-      z-index: 5;
-      display: none;
-    }
-    .center-option.active {
-      display: block;
-      opacity: 1;
-    }
-    .balloon {
-      position: absolute;
-      width: 40px;
-      height: 60px;
-      border-radius: 50%;
-      bottom: -80px;
-      animation: float 6s infinite ease-in;
-      z-index: 1;
-    }
-    .balloon:before {
+    .heart::before, .heart::after {
       content: "";
       position: absolute;
-      width: 2px;
-      height: 30px;
-      background-color: #333;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      left: -10px;
+      top: 0;
     }
     @keyframes float {
-      0% { bottom: -80px; transform: translateX(0) rotate(0deg); }
-      50% { transform: translateX(15px) rotate(5deg); }
-      100% { bottom: 100vh; transform: translateX(-15px) rotate(-5deg); }
-    }
-    .banner {
-      position: fixed;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #ffc0cb;
-      color: #d60b52;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 20px;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(255, 182, 193, 0.7);
-      display: none;
-      z-index: 2;
+      0% {transform: translateY(0) rotate(45deg); opacity: 1;}
+      100% {transform: translateY(-100vh) rotate(45deg); opacity: 0;}
     }
     .confetti {
       position: absolute;
-      width: 8px;
-      height: 8px;
-      background-color: #fceabb;
-      opacity: 0.8;
-      animation: fall 3s linear infinite;
+      width: 10px;
+      height: 10px;
+      background-color: hsl(0, 100%, 70%);
+      animation: fall 3s linear forwards;
     }
     @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(100vh) rotate(360deg); }
+      0% {transform: translateY(0) rotate(0);}
+      100% {transform: translateY(100vh) rotate(360deg); opacity: 0;}
     }
   </style>
 </head>
 <body>
-  <div class="message-box" id="msg1">
-    <h1>It's your special day yeye!!</h1>
-  </div>
-  <div class="message-box" id="msg2">
-    <h2>You're so special to me!!</h2>
-  </div>
-  <div class="message-box" id="msg3">
-    <h2>Do you wanna see what I made??</h2>
-    <button class="btn" id="yesBtn">Yes!</button>
-    <button class="btn btn-no" id="noBtn">No</button>
-  </div>
-  <div class="message-box" id="msg4">
-    <h2>Have a look madam jiii!!!</h2>
-  </div>
-  <div class="center-option" id="lightsBtn">Lights</div>
-  <div class="center-option" id="musicBtn">Play Music</div>
-  <div class="center-option" id="decorateBtn">Decorate</div>
-  <div class="banner" id="banner">Happy Birthday!</div>
-  <div class="message-box" id="balloonQ">
-    <h2>Want some balloons?</h2>
-    <button class="btn" id="yesBalloons">Yes!</button>
-    <button class="btn btn-no" id="noBalloons">No</button>
-  </div>
-  <div class="message-box" id="finalMsg">
-    <h2>A message for you, madam jiii!</h2>
-    <p id="personalText" style="margin-top: 15px; font-size: 16px;"></p>
-  </div>
-  <audio id="music" loop>
-    <!-- Replace with a local file in your repo, e.g., src="./birthday-song.mp3" -->
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    Your browser does not support audio.
-  </audio>
-  <script>
-    const personalMessage = "You're the most amazing person I know!";
-    document.getElementById("personalText").innerText = personalMessage;
+  <div class="message" id="msg1">Hey you...</div>
+  <div class="message" id="msg2">It’s your day today 🎉</div>
+  <div class="message" id="msg3">So here’s a little something I made...</div>
+  <div class="message" id="msg4">You're loved more than you know. Happy Birthday! ❤️</div>  <audio id="bgm" autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+  </audio>  <script>
+    const messages = ["msg1", "msg2", "msg3", "msg4"];
+    let index = 0;
 
-    // Create twinkling stars
-    function createStars() {
-      for (let i = 0; i < 50; i++) {
-        const star = document.createElement("div");
-        star.className = "star";
-        const size = Math.random() * 2 + 1;
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        star.style.left = `${Math.random() * 100}%`;
-        star.style.top = `${Math.random() * 100}%`;
-        star.style.animationDelay = `${Math.random() * 1}s`;
-        document.body.appendChild(star);
-      }
-    }
-
-    // Manage message transitions
-    let currentStep = 0;
-    const steps = [
-      { id: "msg1", delay: 0 },      // It's your special day
-      { id: "msg2", delay: 3000 },   // You're so special
-      { id: "msg3", delay: 3000 },   // Do you wanna see?
-      { id: "msg4", delay: 0 },      // Have a look (after Yes/No)
-      { id: "lightsBtn", delay: 2000 }, // Lights
-      { id: "musicBtn", delay: 1000 },  // Play Music
-      { id: "decorateBtn", delay: 1000 }, // Decorate
-      { id: "balloonQ", delay: 1000 }, // Want balloons?
-      { id: "finalMsg", delay: 2000 } // Final message
-    ];
-
-    function showElement(id) {
-      const el = document.getElementById(id);
-      if (el) {
-        console.log(`Showing: ${id}`);
-        el.classList.add("active");
-        if (el.classList.contains("center-option")) {
-          el.style.display = "block";
-        }
+    function showMessage() {
+      if (index > 0) document.getElementById(messages[index - 1]).classList.remove('active');
+      if (index < messages.length) {
+        document.getElementById(messages[index]).classList.add('active');
+        index++;
+        setTimeout(showMessage, 3000);
       } else {
-        console.error(`Element not found: ${id}`);
+        dropConfetti();
       }
     }
 
-    function hideElement(id) {
-      const el = document.getElementById(id);
-      if (el) {
-        console.log(`Hiding: ${id}`);
-        el.classList.remove("active");
-        if (el.classList.contains("center-option")) {
-          el.style.display = "none";
-        }
-      }
+    function spawnHearts() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.bottom = '-20px';
+      heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
     }
 
-    function nextStep() {
-      if (currentStep < steps.length) {
-        if (currentStep > 0) {
-          hideElement(steps[currentStep - 1].id);
-        }
-        showElement(steps[currentStep].id);
-        currentStep++;
-        if (steps[currentStep - 1].id !== "msg3" && currentStep < steps.length) {
-          setTimeout(nextStep, steps[currentStep - 1].delay);
-        }
-      }
-    }
-
-    // Create balloons
-    function createBalloons() {
-      console.log("Creating balloons");
-      hideElement("balloonQ");
-      const colors = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff"];
-      for (let i = 0; i < 15; i++) {
-        const balloon = document.createElement("div");
-        balloon.className = "balloon";
-        balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        balloon.style.left = `${Math.random() * 100}%`;
-        balloon.style.animationDelay = `${Math.random() * 4}s`;
-        document.body.appendChild(balloon);
-      }
-      dropConfetti();
-      setTimeout(() => nextStep(), 2000);
-    }
-
-    // Drop confetti
     function dropConfetti() {
-      console.log("Dropping confetti");
-      for (let i = 0; i < 30; i++) {
-        const confetti = document.createElement("div");
-        confetti.className = "confetti";
-        confetti.style.left = `${Math.random() * 100}%`;
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-10px';
         confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
-        confetti.style.animationDelay = `${Math.random() * 1.5}s`;
         document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
       }
     }
 
-    // Initialize
-    document.addEventListener("DOMContentLoaded", () => {
-      console.log("DOM loaded");
-      createStars();
-      nextStep(); // Start the sequence
-
-      // Yes/No buttons for msg3
-      const yesBtn = document.getElementById("yesBtn");
-      const noBtn = document.getElementById("noBtn");
-      if (yesBtn) {
-        yesBtn.addEventListener("click", () => {
-          console.log("Yes clicked");
-          nextStep();
-        });
-      } else {
-        console.error("yesBtn not found");
-      }
-      if (noBtn) {
-        noBtn.addEventListener("click", () => {
-          console.log("No clicked");
-          nextStep();
-        });
-      }
-
-      // Lights button
-      const lightsBtn = document.getElementById("lightsBtn");
-      if (lightsBtn) {
-        lightsBtn.addEventListener("click", () => {
-          console.log("Lights clicked");
-          document.body.style.backgroundColor = "#ffebee";
-          nextStep();
-        });
-      }
-
-      // Music button
-      const musicBtn = document.getElementById("musicBtn");
-      if (musicBtn) {
-        musicBtn.addEventListener("click", () => {
-          console.log("Music clicked");
-          const audio = document.getElementById("music");
-          if (audio) audio.play().catch(e => console.error("Audio error:", e));
-          nextStep();
-        });
-      }
-
-      // Decorate button
-      const decorateBtn = document.getElementById("decorateBtn");
-      if (decorateBtn) {
-        decorateBtn.addEventListener("click", () => {
-          console.log("Decorate clicked");
-          document.getElementById("banner").style.display = "block";
-          nextStep();
-        });
-      }
-
-      // Balloon buttons
-      const yesBalloons = document.getElementById("yesBalloons");
-      const noBalloons = document.getElementById("noBalloons");
-      if (yesBalloons) {
-        yesBalloons.addEventListener("click", createBalloons);
-      }
-      if (noBalloons) {
-        noBalloons.addEventListener("click", () => {
-          console.log("No balloons clicked");
-          hideElement("balloonQ");
-          nextStep();
-        });
-      }
-    });
-  </script>
-</body>
+    setInterval(spawnHearts, 500);
+    window.onload = () => showMessage();
+  </script></body>
 </html>
